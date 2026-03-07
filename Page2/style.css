@@ -86,16 +86,20 @@ body {
   background: #000;
   color: #fff;
   overflow-x: hidden;
-  height: 100vh;
-  overflow-y: hidden;
+  /* min-height: 100vh;
+  min-height: 100dvh; */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===== Page Container ===== */
 .page {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: visible;
 }
 
 /* ===== Background ===== */
@@ -275,25 +279,27 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: clamp(24px, 4vh, 50px);
   width: 100%;
   margin: 0;
   padding: 0 75px;
+  padding-bottom: 66px;
   /* Fill space between header (94px) and footer (~66px) */
-  height: calc(100vh - 94px - 66px);
+  min-height: calc(100vh - 94px - 66px);
+  min-height: calc(100dvh - 94px - 66px);
 }
 
 /* ===== Heading "What We Build" ===== */
 .section-heading {
   font-family: 'Gate', sans-serif;
   font-weight: 400;
-  font-size: 75px;
+  font-size: clamp(32px, 5vw, 75px);
   text-align: center;
   text-transform: capitalize;
   letter-spacing: 1.5px;
-  line-height: normal;
+  line-height: 1.2;
   width: 100%;
-  height: 78px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -492,20 +498,20 @@ nav {
 
 /* ===== Footer Text ===== */
 .footer-text {
-  position: absolute;
+  position: fixed;
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   font-family: 'Motive', sans-serif;
   font-weight: 500;
-  font-size: 22px;
+  font-size: clamp(14px, 1.5vw, 22px);
   color: #fff;
   text-align: center;
   letter-spacing: 0.44px;
   line-height: normal;
-  width: 451px;
-  max-width: 90%;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .footer-text .brand {
@@ -596,21 +602,82 @@ nav {
   opacity: 0;
 }
 
+/* ===== Hamburger Button (hidden on desktop) ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.hamburger .bar {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+/* Animated X when open */
+.header.nav-open .hamburger .bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.header.nav-open .hamburger .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.header.nav-open .hamburger .bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Mobile CTA in nav — hidden on desktop */
+.mobile-cta-item {
+  display: none !important;
+}
+
 /* ===== Responsive ===== */
-@media (max-width: 1440px) {
+
+/* ----- Laptop / Small Desktop (≤ 1439px) ----- */
+@media (max-width: 1439px) {
+  .header {
+    padding: 0 35px;
+    height: 80px;
+  }
+
+  .nav-links {
+    gap: 35px;
+  }
+
+  .nav-links li a {
+    font-size: 16px;
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+    letter-spacing: 5px;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 80px - 60px);
+    min-height: calc(100dvh - 80px - 60px);
+    padding: 0 50px;
+    padding-bottom: 60px;
+  }
+
   .cards-row {
     gap: 40px;
-  }
-
-  .service-card {
-    flex: 1;
-    width: auto;
-    min-width: 0;
-  }
-
-  .service-card::before {
-    right: 0;
-    width: auto;
   }
 
   .card-label {
@@ -618,72 +685,436 @@ nav {
   }
 }
 
-@media (max-width: 1100px) {
-  .section-heading {
-    font-size: 55px;
+/* ----- Tablet (≤ 1023px) ----- */
+@media (max-width: 1023px) {
+
+  /* Show hamburger, hide desktop nav & CTA */
+  .hamburger {
+    display: flex;
+  }
+
+  .desktop-cta {
+    display: none;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    transform: none;
+  }
+
+  .header.nav-open {
+    z-index: 9999;
+  }
+
+  .header.nav-open nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    filter: none;
+  }
+
+  .nav-links li a {
+    font-size: 22px;
     height: auto;
-    padding: 10px 0;
+    padding: 18px 30px;
+    display: block;
+    text-align: center;
+  }
+
+  .mobile-cta-item {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .mobile-cta-item .btn-waitlist {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 180px;
+    height: 45px;
+  }
+
+  .header {
+    padding: 0 25px;
+    height: 70px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+    letter-spacing: 4px;
+  }
+
+  .logo-icon {
+    height: 22px;
+  }
+
+  .logo-separator {
+    height: 25px;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 70px - 55px);
+    min-height: calc(100dvh - 70px - 55px);
+    padding: 0 35px;
+    padding-bottom: 55px;
+    gap: clamp(20px, 3vh, 40px);
   }
 
   .cards-row {
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+    align-items: center;
   }
 
   .service-card {
+    flex: none;
     width: 100%;
-    max-width: 603px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header {
-    width: calc(100% - 30px);
-    height: auto;
-    padding: 12px 0;
-  }
-
-  .nav-links {
-    gap: 16px;
-  }
-
-  .nav-links li a {
-    font-size: 14px;
-    height: auto;
-  }
-
-  .section-heading {
-    font-size: 40px;
-    letter-spacing: 1px;
-  }
-
-  .main-content {
-    padding-top: 40px;
-    gap: 40px;
+    max-width: 550px;
+    height: 113px;
+    min-height: 113px;
   }
 
   .card-label {
-    font-size: 20px;
+    font-size: 22px;
+  }
+
+  footer {
+    margin-top: auto;
+    padding-top: 50px;
+    padding-bottom: 22px;
+    text-align: center;
+    z-index: 10;
+  }
+}
+
+/* ----- Large Phone / Fold Phone open (≤ 768px) ----- */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 20px;
+    height: 60px;
+    margin-top: 8px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .logo-icon {
+    height: 20px;
+  }
+
+  .logo-separator {
+    height: 22px;
+  }
+
+  .main-content {
+    padding: 20px 20px 0;
+    min-height: calc(100vh - 60px - 50px);
+    min-height: calc(100dvh - 60px - 50px);
+    gap: clamp(16px, 3vh, 30px);
+  }
+
+  .cards-container {
+    gap: 16px;
+  }
+
+  .cards-row {
+    gap: 16px;
+  }
+
+  .service-card {
+    flex: none;
+    max-width: 100%;
+    height: 90px;
+    min-height: 90px;
+  }
+
+  .service-card::before {
+    height: 90px;
   }
 
   .card-icon {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
+    top: 12px;
   }
 
   .card-icon img {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .card-icon.has-svg-circle img {
+    width: 65px;
+    height: 65px;
+  }
+
+  .card-label {
+    font-size: 18px;
+    left: 82px;
+  }
+
+  .next-btn {
+    font-size: 18px;
+    padding: 14px 18px;
+  }
+
+  .footer-text {
+    white-space: normal;
+  }
+
+  .nav-links li a {
+    font-size: 20px;
+    padding: 16px 25px;
+  }
+}
+
+/* ----- Small Phone (≤ 480px) ----- */
+@media (max-width: 480px) {
+  .header {
+    padding: 0 16px;
+    height: 56px;
+    margin-top: 5px;
+  }
+
+  .logo-text {
+    font-size: 14px;
+    letter-spacing: 2.5px;
+  }
+
+  .logo-icon {
+    height: 18px;
+  }
+
+  .logo-separator {
+    height: 20px;
+  }
+
+  .logo {
+    gap: 7px;
+  }
+
+  .main-content {
+    padding: 16px 16px 0;
+    min-height: calc(100vh - 56px - 45px);
+    min-height: calc(100dvh - 56px - 45px);
+    gap: clamp(12px, 2.5vh, 24px);
+  }
+
+  .cards-container {
+    gap: 12px;
+  }
+
+  .cards-row {
+    gap: 12px;
+  }
+
+  .service-card {
+    flex: none;
+    height: 78px;
+    min-height: 78px;
+  }
+
+  .service-card::before {
+    height: 78px;
+    left: 12px;
+  }
+
+  .card-icon {
+    width: 55px;
+    height: 55px;
+    top: 11px;
+  }
+
+  .card-icon img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .card-icon.has-svg-circle img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .card-label {
+    font-size: 15px;
+    left: 68px;
+    right: 14px;
+  }
+
+  .next-btn {
+    font-size: 16px;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .nav-links li a {
+    font-size: 18px;
+    padding: 14px 20px;
+  }
+}
+
+/* ----- Very Small / Fold Phone closed (≤ 320px) ----- */
+@media (max-width: 320px) {
+  .header {
+    padding: 0 12px;
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .logo-icon {
+    height: 16px;
+  }
+
+  .logo-separator {
+    height: 18px;
+  }
+
+  .logo {
+    gap: 5px;
+  }
+
+  .main-content {
+    padding: 12px 12px 0;
+    gap: 10px;
+  }
+
+  .service-card {
+    flex: none;
+    height: 70px;
+    min-height: 70px;
+  }
+
+  .service-card::before {
+    height: 70px;
+    left: 10px;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    top: 11px;
+  }
+
+  .card-icon img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .card-icon.has-svg-circle img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .card-label {
+    font-size: 13px;
+    left: 58px;
+    right: 10px;
+  }
+
+  .next-btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .nav-links li a {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+}
+
+/* ===== Height-based queries (short viewports) ===== */
+
+/* Short viewport — prevent footer overlap */
+@media (max-height: 820px) and (min-width: 769px) {
+  .footer-text {
+    white-space: normal;
+  }
+
+  .main-content {
+    padding-bottom: 0;
+  }
+}
+
+/* Very short desktop/laptop viewport */
+@media (max-height: 700px) and (min-width: 769px) {
+  .main-content {
+    gap: 16px;
+  }
+
+  .cards-container {
+    gap: 16px;
+  }
+
+  .cards-row {
+    gap: 16px;
   }
 
   .service-card {
     height: 90px;
-    padding: 14px 24px 14px 14px;
-    gap: 14px;
+  }
+
+  .service-card::before {
+    height: 90px;
+  }
+}
+
+/* Very short mobile viewport (landscape phone) */
+@media (max-height: 500px) {
+  .main-content {
+    gap: 10px;
+    min-height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .cards-container {
+    gap: 8px;
+  }
+
+  .cards-row {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .service-card {
+    height: 70px;
+  }
+
+  .service-card::before {
+    height: 70px;
   }
 
   .footer-text {
-    font-size: 16px;
-    width: auto;
+    white-space: normal;
   }
 }

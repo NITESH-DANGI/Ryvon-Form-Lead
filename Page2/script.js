@@ -72,6 +72,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Hamburger Mobile Nav Toggle ---
+  const hamburger = document.getElementById('hamburger');
+  const header = document.querySelector('.header');
+  const navLinks = document.getElementById('nav-links');
+
+  if (hamburger && header && navLinks) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      header.classList.toggle('nav-open');
+      const isOpen = header.classList.contains('nav-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        header.classList.remove('nav-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (header.classList.contains('nav-open') &&
+          !navLinks.contains(e.target) &&
+          !hamburger.contains(e.target)) {
+        header.classList.remove('nav-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
 });
 
 // Add ripple keyframes dynamically

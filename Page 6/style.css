@@ -86,8 +86,11 @@ body {
   background: #000;
   color: #fff;
   overflow-x: hidden;
-  height: 100vh;
-  overflow-y: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===== Background ===== */
@@ -187,7 +190,7 @@ nav {
   opacity: 0.75;
 }
 
-/* CTA Button — Waitlist */
+/* CTA Button — Waitlist (Glassmorphism) */
 .btn-waitlist {
   position: absolute;
   right: 23.25px;
@@ -195,17 +198,19 @@ nav {
   transform: translateY(-50%);
   height: 37.5px;
   width: 154px;
-  background: #000;
-  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 38.242px;
   cursor: pointer;
   overflow: hidden;
   box-shadow:
-    0px 0.661px 0.661px -0.598px rgba(0, 0, 0, 0.18),
-    0px 1.801px 1.801px -1.195px rgba(0, 0, 0, 0.18),
-    0px 3.953px 3.953px -1.793px rgba(0, 0, 0, 0.17),
-    0px 8.776px 8.776px -2.39px rgba(0, 0, 0, 0.14),
-    0px 22.308px 22.308px -2.988px rgba(0, 0, 0, 0.06);
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 12px 2px rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-waitlist__label {
@@ -232,21 +237,39 @@ nav {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow:
-    inset -3.187px 2.39px 7.17px 0px #0175ff,
-    inset 2.39px -1.593px 6.374px 0px #0ef;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(1, 117, 255, 0) 0%, rgba(1, 117, 255, 0) 100%);
   transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
-.btn-waitlist:hover .btn-waitlist__glow {
+.btn-waitlist__glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+}
+
+.btn-waitlist__glow::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 1px;
+  height: 80%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent, rgba(255, 255, 255, 0.2));
+}
+
+.btn-waitlist:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
   box-shadow:
-    inset -3.187px 2.39px 7.17px 0px #0175ff,
-    inset 2.39px -1.593px 6.374px 0px #0ef,
-    inset 0px -4px 10px 0px rgba(0, 238, 255, 0.9),
-    0px 6px 20px 0px rgba(0, 238, 255, 0.4);
-  background: linear-gradient(to top, rgba(0, 238, 255, 0.18) 0%, transparent 25%);
+    0 6px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 20px 4px rgba(255, 255, 255, 0.1),
+    0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 /* ===== Back Button ===== */
@@ -283,7 +306,7 @@ nav {
   margin-top: -40px;
   margin-bottom: 0;
   padding: 0 75px;
-  height: calc(100vh - 94px - 66px);
+  min-height: calc(100vh - 94px - 66px);
 }
 
 /* ===== Heading — gradient text clipping ===== */
@@ -294,7 +317,7 @@ nav {
   text-align: center;
   letter-spacing: 1.5px;
   text-transform: capitalize;
-  line-height: 78px;
+  line-height: auto;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   /* Gradient text via background-clip */
@@ -428,20 +451,27 @@ nav {
 
 /* ===== Footer ===== */
 footer {
+  margin-top: auto;
+  padding-top: 50px;
+  padding-bottom: 22px;
+  text-align: center;
+  z-index: 10;
+}
+
+.footer-text {
   position: fixed;
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-}
-
-.footer-text {
   font-family: 'Motive', sans-serif;
   font-weight: 500;
-  font-size: 22px;
+  font-size: clamp(14px, 1.5vw, 22px);
   color: #fff;
   text-align: center;
   letter-spacing: 0.44px;
+  line-height: normal;
+  width: 100%;
   white-space: nowrap;
 }
 
@@ -450,44 +480,197 @@ footer {
   font-weight: 400;
 }
 
+/* ===== Hamburger Button (hidden on desktop) ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.hamburger .bar {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+.header.nav-open .hamburger .bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.header.nav-open .hamburger .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.header.nav-open .hamburger .bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+.mobile-cta-item {
+  display: none !important;
+}
+
 /* ===== Responsive ===== */
-@media (max-width: 1100px) {
-  .section-heading {
-    font-size: 50px;
-    line-height: 60px;
+
+/* ----- Laptop / Small Desktop ----- */
+@media (max-width: 1439px) {
+  .header {
+    padding: 0 35px;
+    height: 80px;
   }
 
-  .form-card {
-    width: 100%;
-    padding: 20px 24px 30px;
+  .nav-links {
+    gap: 35px;
   }
 
-  .form-title {
-    font-size: 24px;
-    width: 100%;
+  .nav-links li a {
+    font-size: 16px;
+    height: 50px;
   }
 
-  .textarea-wrapper {
-    width: 100%;
-  }
-
-  .form-textarea {
+  .logo-text {
     font-size: 20px;
-    height: 130px;
+    letter-spacing: 5px;
   }
 
-  .form-textarea::placeholder {
-    font-size: 20px;
+  .main-content {
+    padding: 0 50px;
   }
 }
 
+/* ----- Tablet ----- */
+@media (max-width: 1023px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .desktop-cta {
+    display: none;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    transform: none;
+  }
+
+  .header.nav-open {
+    z-index: 9999;
+  }
+
+  .header.nav-open nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    filter: none;
+  }
+
+  .nav-links li a {
+    font-size: 22px;
+    height: auto;
+    padding: 18px 30px;
+    display: block;
+    text-align: center;
+  }
+
+  .mobile-cta-item {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .mobile-cta-item .btn-waitlist {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 180px;
+    height: 45px;
+  }
+
+  .header {
+    padding: 0 25px;
+    height: 70px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+    letter-spacing: 4px;
+  }
+
+  .logo-icon {
+    height: 22px;
+  }
+
+  .logo-separator {
+    height: 25px;
+  }
+
+  .main-content {
+    padding: 0 35px;
+  }
+
+  .section-heading {
+    font-size: clamp(32px, 5vw, 55px);
+  }
+
+  .form-card {
+    max-width: 100%;
+  }
+}
+
+/* ----- Large Phone / Tablet Portrait ----- */
 @media (max-width: 768px) {
   .header {
     padding: 0 20px;
+    height: 60px;
+    margin-top: 8px;
   }
 
-  .back-btn {
-    left: 20px;
+  .logo-text {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .logo-icon {
+    height: 20px;
+  }
+
+  .logo-separator {
+    height: 22px;
   }
 
   .main-content {
@@ -495,24 +678,180 @@ footer {
   }
 
   .section-heading {
-    font-size: 36px;
-    line-height: 44px;
+    font-size: clamp(28px, 5vw, 40px);
+    letter-spacing: 1px;
   }
 
-  .form-textarea {
-    font-size: 16px;
-    height: 120px;
+  .form-card {
+    padding: 24px 20px;
   }
 
-  .form-textarea::placeholder {
-    font-size: 16px;
+  .field-row.two-col {
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .form-title {
-    font-size: 20px;
+  .options-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .next-btn,
+  .submit-btn {
+    font-size: 18px;
+    padding: 14px 18px;
+  }
+
+  .back-btn {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    display: block;
+    padding: 8px 20px;
+    margin-top: -10px;
   }
 
   .footer-text {
-    font-size: 16px;
+    white-space: normal;
   }
+
+  .nav-links li a {
+    font-size: 20px;
+    padding: 16px 25px;
+  }
+
+  .step-label {
+    font-size: clamp(14px, 2vw, 18px);
+  }
+
+  .form-title {
+    font-size: clamp(20px, 3vw, 28px);
+  }
+
+  .body-text {
+    font-size: clamp(14px, 2vw, 18px);
+    padding: 0 10px;
+  }
+}
+
+/* ----- Small Phone ----- */
+@media (max-width: 480px) {
+  .header {
+    padding: 0 16px;
+    height: 56px;
+    margin-top: 5px;
+  }
+
+  .logo-text {
+    font-size: 14px;
+    letter-spacing: 2.5px;
+  }
+
+  .logo-icon {
+    height: 18px;
+  }
+
+  .logo-separator {
+    height: 20px;
+  }
+
+  .logo {
+    gap: 7px;
+  }
+
+  .main-content {
+    padding: 0 16px;
+    gap: clamp(12px, 2.5vh, 24px);
+  }
+
+  .form-card {
+    padding: 20px 16px;
+  }
+
+  .back-btn {
+    left: 16px;
+    font-size: 14px;
+  }
+
+  .next-btn,
+  .submit-btn {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  .nav-links li a {
+    font-size: 18px;
+    padding: 14px 20px;
+  }
+}
+
+/* ----- Very Small / Fold Phone ----- */
+@media (max-width: 320px) {
+  .header {
+    padding: 0 12px;
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .logo-icon {
+    height: 16px;
+  }
+
+  .logo-separator {
+    height: 18px;
+  }
+
+  .logo {
+    gap: 5px;
+  }
+
+  .main-content {
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  .form-card {
+    padding: 16px 12px;
+  }
+
+  .next-btn,
+  .submit-btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .nav-links li a {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+}
+
+/* ===== Height-based queries ===== */
+
+@media (max-height: 820px) and (min-width: 769px) {
+  .footer-text {
+    white-space: normal;
+  }
+
+  .main-content {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-height: 500px) {
+  .main-content {
+    min-height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .footer-text {
+    white-space: normal;
+  }
+
 }

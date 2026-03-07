@@ -43,6 +43,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  /* ----- Hamburger Mobile Nav Toggle ----- */
+  var hamburger = document.getElementById('hamburger');
+  var headerEl = document.querySelector('.header');
+  var navLinksEl = document.getElementById('nav-links');
+  if (hamburger && headerEl && navLinksEl) {
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      headerEl.classList.toggle('nav-open');
+      var isOpen = headerEl.classList.contains('nav-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    navLinksEl.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        headerEl.classList.remove('nav-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (headerEl.classList.contains('nav-open') && !navLinksEl.contains(e.target) && !hamburger.contains(e.target)) {
+        headerEl.classList.remove('nav-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+  }
 });
 
 /* Shake animation */
