@@ -80,6 +80,15 @@ app.post('/api/leads', (req, res) => {
   }
 });
 
+// Download CSV endpoint
+app.get('/api/leads/download', (req, res) => {
+  if (fs.existsSync(CSV_FILE)) {
+    res.download(CSV_FILE, 'ryvon_leads.csv');
+  } else {
+    res.status(404).json({ error: 'No leads have been submitted yet.' });
+  }
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', leads: fs.existsSync(CSV_FILE) ? 'file exists' : 'no file yet' });
