@@ -352,8 +352,11 @@ nav {
   height: 113px;
   border-radius: 161px;
   background: linear-gradient(180.18deg, rgba(0, 0, 0, 0.2) 67.99%, rgba(0, 47, 123, 0.2) 99.2%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0px 1.291px 19.366px 0px rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0px 1.291px 19.366px 0px rgba(255, 255, 255, 0.03),
+    inset 3px 0 0 -1px rgba(255, 255, 255, 0.15),
+    inset -3px 0 0 -1px rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
@@ -361,7 +364,7 @@ nav {
 
 .service-card:hover::before {
   background: linear-gradient(180.18deg, rgba(0, 0, 0, 0.25) 50%, rgba(0, 60, 150, 0.25) 99.2%);
-  border-color: rgba(55, 175, 249, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
   box-shadow:
     inset 0px 1.291px 19.366px 0px rgba(255, 255, 255, 0.04),
     0 4px 24px rgba(1, 117, 255, 0.1);
@@ -371,7 +374,8 @@ nav {
 .card-icon {
   position: absolute;
   left: 0;
-  top: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 83px;
   height: 83px;
   border-radius: 50%;
