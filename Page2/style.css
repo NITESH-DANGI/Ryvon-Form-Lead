@@ -459,11 +459,14 @@ nav {
 
 /* ===== Next Button ===== */
 .next-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 12px;
   padding: 17px 20px;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: none;
   border-radius: 100px;
   color: #fff;
@@ -471,14 +474,41 @@ nav {
   font-weight: 400;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 0px 2px 20.6px 0px rgba(255, 255, 255, 0.66);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, background 0.25s ease;
   text-decoration: none;
 }
 
+.next-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from 0deg at 50% 50%,
+      rgba(255, 255, 255, 0.12) 0deg,
+      rgba(255, 255, 255, 0.12) 65deg,
+      rgba(255, 255, 255, 0.5) 70deg,
+      rgba(255, 255, 255, 0.5) 110deg,
+      rgba(255, 255, 255, 0.12) 115deg,
+      rgba(255, 255, 255, 0.12) 245deg,
+      rgba(255, 255, 255, 0.5) 250deg,
+      rgba(255, 255, 255, 0.5) 290deg,
+      rgba(255, 255, 255, 0.12) 295deg,
+      rgba(255, 255, 255, 0.12) 360deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: background 0.25s ease;
+}
+
 .next-btn:hover {
-  box-shadow: 0px 2px 30px 0px rgba(255, 255, 255, 0.85);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.next-btn:hover::before {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .next-btn .chevron {
