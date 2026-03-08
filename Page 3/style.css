@@ -558,6 +558,7 @@ footer {
   align-items: center !important;
   margin: 0 auto !important;
   padding: 0 20px !important;
+  gap: 10px;
 }
 
 .footer-text .brand {
