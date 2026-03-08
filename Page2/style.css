@@ -86,11 +86,12 @@ body {
   background: #000;
   color: #fff;
   overflow-x: hidden;
-  /* min-height: 100vh;
-  min-height: 100dvh; */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
 }
 
 /* ===== Page Container ===== */
@@ -104,7 +105,7 @@ body {
 
 /* ===== Background ===== */
 .bg-container {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 0;
   overflow: hidden;
@@ -278,15 +279,13 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(24px, 4vh, 50px);
+  gap: 20px;
   width: 100%;
-  margin: 0;
   padding: 0 75px;
-  padding-bottom: 66px;
-  /* Fill space between header (94px) and footer (~66px) */
   min-height: calc(100vh - 94px - 66px);
-  min-height: calc(100dvh - 94px - 66px);
+  justify-content: center;
+  margin-top: -15px;
+  flex: 1 0 auto;
 }
 
 /* ===== Heading "What We Build" ===== */
@@ -498,20 +497,20 @@ nav {
 
 /* ===== Footer Text ===== */
 .footer-text {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
   font-family: 'Motive', sans-serif;
   font-weight: 500;
   font-size: clamp(14px, 1.5vw, 22px);
   color: #fff;
-  text-align: center;
+  text-align: center !important;
   letter-spacing: 0.44px;
   line-height: normal;
-  width: 100%;
+  width: 100% !important;
   white-space: nowrap;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
 }
 
 .footer-text .brand {
@@ -598,8 +597,20 @@ nav {
 }
 
 .footer-text {
-  animation: fadeIn 1s ease 1.3s forwards;
-  opacity: 0;
+  font-family: 'Motive', sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.5vw, 22px);
+  color: #fff;
+  text-align: center !important;
+  letter-spacing: 0.44px;
+  line-height: normal;
+  width: 100% !important;
+  white-space: nowrap;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
 }
 
 /* ===== Hamburger Button (hidden on desktop) ===== */
@@ -807,7 +818,7 @@ nav {
     padding-top: 50px;
     padding-bottom: 22px;
     text-align: center;
-    z-index: 10;
+    width: 100%;
   }
 }
 
@@ -885,7 +896,20 @@ nav {
   }
 
   .footer-text {
-    white-space: normal;
+    font-family: 'Motive', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 1.5vw, 22px);
+    color: #fff;
+    text-align: center !important;
+    letter-spacing: 0.44px;
+    line-height: normal;
+    width: 100% !important;
+    white-space: nowrap;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
   }
 
   .nav-links li a {
@@ -1057,7 +1081,20 @@ nav {
 /* Short viewport — prevent footer overlap */
 @media (max-height: 820px) and (min-width: 769px) {
   .footer-text {
-    white-space: normal;
+    font-family: 'Motive', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 1.5vw, 22px);
+    color: #fff;
+    text-align: center !important;
+    letter-spacing: 0.44px;
+    line-height: normal;
+    width: 100% !important;
+    white-space: nowrap;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
   }
 
   .main-content {
@@ -1115,6 +1152,84 @@ nav {
   }
 
   .footer-text {
-    white-space: normal;
+    font-family: 'Motive', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 1.5vw, 22px);
+    color: #fff;
+    text-align: center !important;
+    letter-spacing: 0.44px;
+    line-height: normal;
+    width: 100% !important;
+    white-space: nowrap;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
   }
+}
+
+/* ===== Unified Footer & Scroll Fix ===== */
+body {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+}
+
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+.main-content,
+.hero {
+  flex: 1 0 auto;
+}
+
+/* ===== Global Responsive Footer Gap ===== */
+.main-content,
+.hero {
+  flex: 1 0 auto !important;
+  margin-bottom: 40px !important;
+}
+
+@media(max-width: 768px) {
+
+  .main-content,
+  .hero {
+    margin-bottom: 60px !important;
+  }
+}
+
+footer {
+  margin-top: auto;
+  padding-top: 50px;
+  padding-bottom: 22px;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-text {
+  font-family: 'Motive', sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.5vw, 22px);
+  color: #fff;
+  text-align: center !important;
+  letter-spacing: 0.44px;
+  line-height: normal;
+  width: 100% !important;
+  white-space: nowrap;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+
+.footer-text .brand {
+  font-family: 'Nasalization', 'Motive', sans-serif;
+  font-weight: 400;
 }

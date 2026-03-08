@@ -11,113 +11,112 @@
 </head>
 
 <body>
-  <div class="page">
 
-    <!-- ===== Background ===== -->
-    <div class="bg-container">
-      <img src="asset/Gradient V32.svg" alt="Background gradient" data-node-id="1:78" />
+  <!-- ===== Background ===== -->
+  <div class="bg-container">
+    <img src="asset/Gradient V32.svg" alt="Background gradient" data-node-id="1:78" />
+  </div>
+
+  <!-- ===== Header / Navigation ===== -->
+  <header class="header" data-node-id="1:84">
+    <div class="logo" data-node-id="1:85">
+      <img src="./asset/Union.svg" alt="Ryvon icon" class="logo-icon" />
+      <img src="./asset/Line 257.svg" alt="" class="logo-separator" />
+      <span class="logo-text">RYVON</span>
     </div>
 
-    <!-- ===== Header / Navigation ===== -->
-    <header class="header" data-node-id="1:84">
-      <div class="logo" data-node-id="1:85">
-        <img src="./asset/Union.svg" alt="Ryvon icon" class="logo-icon" />
-        <img src="./asset/Line 257.svg" alt="" class="logo-separator" />
-        <span class="logo-text">RYVON</span>
-      </div>
+    <nav>
+      <ul class="nav-links" id="nav-links" data-node-id="1:92">
+        <li data-node-id="1:93"><a href="#home">Home</a></li>
+        <li data-node-id="1:94"><a href="#about">About</a></li>
+        <li data-node-id="1:95"><a href="#product">Product</a></li>
+        <li data-node-id="1:96"><a href="#features">Features</a></li>
+        <li class="mobile-cta-item">
+          <button class="btn-waitlist mobile-cta">
+            <span class="btn-waitlist__label">Join Waitlist</span>
+            <span class="btn-waitlist__glow"></span>
+          </button>
+        </li>
+      </ul>
+    </nav>
 
-      <nav>
-        <ul class="nav-links" id="nav-links" data-node-id="1:92">
-          <li data-node-id="1:93"><a href="#home">Home</a></li>
-          <li data-node-id="1:94"><a href="#about">About</a></li>
-          <li data-node-id="1:95"><a href="#product">Product</a></li>
-          <li data-node-id="1:96"><a href="#features">Features</a></li>
-          <li class="mobile-cta-item">
-            <button class="btn-waitlist mobile-cta">
-              <span class="btn-waitlist__label">Join Waitlist</span>
-              <span class="btn-waitlist__glow"></span>
-            </button>
-          </li>
-        </ul>
-      </nav>
+    <button class="btn-waitlist desktop-cta" data-node-id="1:97">
+      <span class="btn-waitlist__label">Join Waitlist</span>
+      <span class="btn-waitlist__glow"></span>
+    </button>
 
-      <button class="btn-waitlist desktop-cta" data-node-id="1:97">
-        <span class="btn-waitlist__label">Join Waitlist</span>
-        <span class="btn-waitlist__glow"></span>
-      </button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </header>
 
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-    </header>
+  <!-- ===== Main Content ===== -->
+  <main class="main-content" data-node-id="1:99">
 
-    <!-- ===== Main Content ===== -->
-    <main class="main-content" data-node-id="1:99">
+    <!-- Heading -->
+    <h1 class="section-heading" data-node-id="1:100">What We Build</h1>
 
-      <!-- Heading -->
-      <h1 class="section-heading" data-node-id="1:100">What We Build</h1>
+    <!-- Service Cards -->
+    <div class="cards-container" data-node-id="1:101">
 
-      <!-- Service Cards -->
-      <div class="cards-container" data-node-id="1:101">
+      <!-- Row 1 -->
+      <div class="cards-row">
 
-        <!-- Row 1 -->
-        <div class="cards-row">
-
-          <!-- Card: AI SaaS Products -->
-          <div class="service-card">
-            <div class="card-icon has-svg-circle">
-              <img src="./asset/Feature Card Icon2.svg" alt="AI SaaS Products icon" />
-            </div>
-            <p class="card-label">AI SaaS Products</p>
+        <!-- Card: AI SaaS Products -->
+        <div class="service-card">
+          <div class="card-icon has-svg-circle">
+            <img src="./asset/Feature Card Icon2.svg" alt="AI SaaS Products icon" />
           </div>
-
-          <!-- Card: AI Customer Support Bots -->
-          <div class="service-card">
-            <div class="card-icon">
-              <img src="./asset/Component 52.svg" alt="AI Customer Support Bots icon" />
-            </div>
-            <p class="card-label">AI Customer Support Bots</p>
-          </div>
+          <p class="card-label">AI SaaS Products</p>
         </div>
 
-        <!-- Row 2 -->
-        <div class="cards-row">
-
-          <!-- Card: AI Agents for Business Workflows -->
-          <div class="service-card">
-            <div class="card-icon has-svg-circle">
-              <img src="./asset/Feature Card Icon.svg" alt="AI Agents icon" />
-            </div>
-            <p class="card-label">AI Agents for Business Workflows</p>
+        <!-- Card: AI Customer Support Bots -->
+        <div class="service-card">
+          <div class="card-icon">
+            <img src="./asset/Component 52.svg" alt="AI Customer Support Bots icon" />
           </div>
-
-          <!-- Card: AI Automation Systems -->
-          <div class="service-card">
-            <div class="card-icon">
-              <img src="./asset/share-8535816.svg" alt="AI Automation icon" />
-            </div>
-            <p class="card-label">AI Automation Systems</p>
-          </div>
+          <p class="card-label">AI Customer Support Bots</p>
         </div>
       </div>
 
-      <!-- Next Button -->
-      <a href="../Page 3/index.html" class="next-btn" data-node-id="1:127">
-        <span data-node-id="1:129">Next</span>
-        <span class="chevron" data-node-id="1:130">
-          <img src="./asset/Chevron_Right_Duo.svg" alt="Chevron right" />
-        </span>
-      </a>
-    </main>
+      <!-- Row 2 -->
+      <div class="cards-row">
 
-    <!-- ===== Footer Text ===== -->
+        <!-- Card: AI Agents for Business Workflows -->
+        <div class="service-card">
+          <div class="card-icon has-svg-circle">
+            <img src="./asset/Feature Card Icon.svg" alt="AI Agents icon" />
+          </div>
+          <p class="card-label">AI Agents for Business Workflows</p>
+        </div>
+
+        <!-- Card: AI Automation Systems -->
+        <div class="service-card">
+          <div class="card-icon">
+            <img src="./asset/share-8535816.svg" alt="AI Automation icon" />
+          </div>
+          <p class="card-label">AI Automation Systems</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Button -->
+    <a href="../Page 3/index.html" class="next-btn" data-node-id="1:127">
+      <span data-node-id="1:129">Next</span>
+      <span class="chevron" data-node-id="1:130">
+        <img src="./asset/Chevron_Right_Duo.svg" alt="Chevron right" />
+      </span>
+    </a>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
     <div class="footer-text" data-node-id="1:83">
       AI Bharat Expo - Connect with <span class="brand">Ryvon</span>
     </div>
-
-  </div>
+  </footer>
 
   <!-- ===== Script ===== -->
   <script src="script.js"></script>
